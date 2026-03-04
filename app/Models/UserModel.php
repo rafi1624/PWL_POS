@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends Model
 {
-    use HasFactory;
+    protected $table = 'm_user'; // Pastikan nama tabel sesuai
+    protected $primaryKey = 'user_id'; // Sesuai dengan primary key di tabel Anda
 
-    protected $table = 'm_user';
-    protected $primaryKey = 'user_id';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['level_id', 'username', 'nama'];
+    // Tambahkan field-field ini agar bisa diisi secara otomatis (Mass Assignment)
+    protected $fillable = [
+        'username',
+        'nama',
+        'password',
+        'level_id',
+    ];
 }
