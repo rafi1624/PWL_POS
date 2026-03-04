@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $user = UserModel::all();
-        return view('user', ['data' => $user]);
-    }
-
+public function index()
+{
+    // Pastikan menggunakan tanda kurung ()
+    $user = UserModel::all(); 
+    return view('user', ['data' => $user]);
+}
     public function tambah()
     {
         return view('user_tambah');
@@ -39,11 +39,13 @@ class UserController extends Controller
 
     public function ubah_simpan($id, Request $request)
 {
-    $user = UserModel::find($id);
+    // Gunakan findOrFail agar langsung error 404 jika ID tidak ada
+    $user = UserModel::findOrFail($id); 
 
     $user->username = $request->username;
     $user->nama = $request->nama;
-    $user->password = Hash::make($request->password);
+    // Pastikan variabel $request->password tidak dibungkus tanda kutip
+    $user->password = Hash::make($request->password); 
     $user->level_id = $request->level_id;
 
     $user->save();

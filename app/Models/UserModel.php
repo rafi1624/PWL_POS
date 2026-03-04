@@ -2,18 +2,22 @@
 
 namespace App\Models;
 
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserModel extends Model
 {
-    protected $table = 'm_user'; // Pastikan nama tabel sesuai
-    protected $primaryKey = 'user_id'; // Sesuai dengan primary key di tabel Anda
+    use HasFactory;
 
-    // Tambahkan field-field ini agar bisa diisi secara otomatis (Mass Assignment)
-    protected $fillable = [
-        'username',
-        'nama',
-        'password',
-        'level_id',
-    ];
+    protected $table = 'm_user';
+    protected $primaryKey = 'user_id';
+
+    protected $fillable = ['level_id', 'username', 'nama', 'password'];
+
+    public function level(): BelongsTo
+    {
+        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
 }
